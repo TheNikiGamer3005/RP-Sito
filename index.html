@@ -365,6 +365,28 @@ nav.scroll{box-shadow:0 1px 0 var(--line),0 10px 30px -20px rgba(0,0,0,.35)}
 @keyframes srot{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 }
 </style>
+<style id="upd-css">
+body.mostra-update > header.hero, body.mostra-update > section{display:none}
+#update{padding-block:56px 110px;min-height:70vh}
+#update .u-testa{text-align:center;margin-bottom:34px}
+#update .u-testa .big{font-size:clamp(40px,7vw,76px)}
+.u-ed{max-width:720px;margin:0 auto 30px;background:var(--tile);border:1px solid var(--accent);border-radius:20px;padding:20px;display:grid;gap:10px}
+.u-ed h3{font-size:18px}
+.u-ed input,.u-ed textarea,.u-ed select{font:inherit;font-size:15px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);width:100%;box-sizing:border-box}
+.u-ed textarea{min-height:110px;resize:vertical}
+.u-ed .r{display:flex;gap:10px;flex-wrap:wrap}.u-ed .r>*{flex:1;min-width:120px}
+.u-ed button{font:inherit;font-size:15px;font-weight:500;border:0;border-radius:980px;padding:10px 20px;background:var(--accent);color:#fff;cursor:pointer}
+.u-ed button.g{background:var(--tile2);color:var(--fg);border:1px solid var(--line)}
+.u-ed small{color:var(--muted);font-size:13px;line-height:1.4}
+.u-lista{max-width:720px;margin:0 auto;display:grid;gap:14px}
+.u-item{background:var(--tile);border:1px solid var(--line);border-radius:20px;padding:20px 22px}
+.u-item .su{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.u-item h3{font-size:22px;letter-spacing:-.02em;margin:8px 0 6px}
+.u-item p{font-size:15.5px;white-space:pre-wrap}
+.u-tag{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:980px;padding:3px 10px;background:#0a84ff;color:#fff}
+.u-tag.nuovo{background:#30d158}.u-tag.fix{background:#f5c400;color:#111}.u-tag.avviso{background:#ff6961}
+.u-del{margin-left:auto;font:inherit;font-size:12px;border:0;background:none;color:var(--muted);cursor:pointer}
+</style>
 </head>
 <body>
 
@@ -372,7 +394,7 @@ nav.scroll{box-shadow:0 1px 0 var(--line),0 10px 30px -20px rgba(0,0,0,.35)}
   <div class="wrap">
     <a class="logo" href="#top"><i></i>MillenniumRP</a>
     <div class="links">
-      <a href="#entra">Entra</a><a href="#store">Store</a><a href="#forum">Forum</a><a href="#area">Gestionale</a>
+      <a href="#entra">Entra</a><a href="#store">Store</a><a href="#forum">Forum</a><a href="#update">Update</a><a href="#area">Gestionale</a>
     </div>
   </div>
 </nav>
@@ -538,6 +560,7 @@ nav.scroll{box-shadow:0 1px 0 var(--line),0 10px 30px -20px rgba(0,0,0,.35)}
 
 <main id="area" hidden aria-live="polite"><div class="wrap" id="areaWrap"></div></main>
 
+<main id="update" hidden><div class="wrap" id="updateWrap"></div></main>
 <main id="forum" hidden><div class="wrap" id="forumWrap"></div></main>
 
 <footer><div class="wrap"><span>MillenniumRP · server roleplay non ufficiale, non affiliato a Mojang o Microsoft.</span><span>Regolamento · Staff · Discord</span></div></footer>
@@ -1201,6 +1224,63 @@ document.getElementById('copy').addEventListener('click',async e=>{
     else if(era&&location.hash.length>1){requestAnimationFrame(function(){var t=null;try{t=document.querySelector(location.hash)}catch(e){}if(t&&t.scrollIntoView)t.scrollIntoView()})}
   }
   addEventListener('hashchange',route);route();
+})();
+</script>
+<script>
+(function(){
+  var U=document.getElementById('update'),W=document.getElementById('updateWrap');
+  var BASE=[
+    {id:'b3',d:'2026-11-11',v:'Sito',t:'nuovo',h:'Animazioni sul sito',x:'Comparsa dolce delle sezioni, numeri che contano, nastro dello store che si srotola.'},
+    {id:'b2',d:'2026-11-11',v:'Sito',t:'nuovo',h:'Nasce il Forum',x:'Approvazioni kill, approvazioni mafie, proposte, proposte per eventi e altro. Per ora con dati di prova.'},
+    {id:'b1',d:'2026-11-11',v:'Sito',t:'nuovo',h:'Lo Store (chiuso per ora)',x:'Donazioni, Gradi e Bitmit sono in preparazione: apriranno più avanti.'}
+  ];
+  var K='mrp_upd',KA='mrp_admin',rem=[];
+  function ls(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function ss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function loc(){try{return JSON.parse(ls(K)||'[]')}catch(e){return[]}}
+  function admin(){return ls(KA)==='1'}
+  function tutti(){var m={},o=[];rem.concat(loc(),BASE).forEach(function(u){if(u&&u.id&&!m[u.id]){m[u.id]=1;o.push(u)}});
+    o.sort(function(a,b){return (b.d+b.id)<(a.d+a.id)?-1:1});return o}
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+  function dat(d){var p=(d||'').split('-');return p.length==3?p[2]+'/'+p[1]+'/'+p[0]:d}
+  function disegna(){
+    W.textContent='';
+    var t=el('div','u-testa');t.appendChild(el('p','eyebrow','Update'));t.appendChild(el('h2','big','Novità del server.'));
+    t.appendChild(el('p','lead','Tutto quello che cambia in città, in ordine di data.'));W.appendChild(t);
+    if(admin())editor();
+    var L=el('div','u-lista');
+    tutti().forEach(function(u){
+      var i=el('article','u-item'),su=el('div','su');
+      su.appendChild(el('span','u-tag '+(u.t||''),({nuovo:'Nuovo',fix:'Correzione',avviso:'Avviso'})[u.t]||'Update'));
+      su.appendChild(el('span',null,dat(u.d)+(u.v?' · '+u.v:'')));
+      if(admin()&&loc().some(function(z){return z.id===u.id})){var b=el('button','u-del','Elimina');b.onclick=function(){ss(K,JSON.stringify(loc().filter(function(z){return z.id!==u.id})));disegna()};su.appendChild(b)}
+      i.appendChild(su);i.appendChild(el('h3',null,u.h));if(u.x)i.appendChild(el('p',null,u.x));L.appendChild(i);
+    });
+    W.appendChild(L);
+  }
+  function editor(){
+    var f=el('div','u-ed');f.appendChild(el('h3',null,'Nuovo update (solo staff)'));
+    var h=el('input');h.placeholder='Titolo';h.maxLength=90;
+    var r=el('div','r'),v=el('input');v.placeholder='Versione o area (es. Veicoli 1.2)';v.maxLength=40;
+    var t=el('select');[['nuovo','Nuovo'],['update','Update'],['fix','Correzione'],['avviso','Avviso']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];t.appendChild(op)});
+    r.appendChild(v);r.appendChild(t);
+    var x=el('textarea');x.placeholder='Cosa cambia?';x.maxLength=1500;
+    var r2=el('div','r'),p=el('button',null,'Pubblica'),c=el('button','g','Copia updates.json'),o=el('button','g','Esci da staff');
+    r2.appendChild(p);r2.appendChild(c);r2.appendChild(o);
+    var n=el('small',null,'Pubblica = lo vedi subito qui. Per mostrarlo a tutti: "Copia updates.json" e metti il testo nel file updates.json accanto a index.html (Sito e Sito-Vercel). Il collegamento diretto al server arriverà con il Portale.');
+    p.onclick=function(){if(!h.value.trim())return;var a=loc();a.push({id:'l'+Date.now(),d:new Date().toISOString().slice(0,10),v:v.value.trim(),t:t.value,h:h.value.trim(),x:x.value.trim()});ss(K,JSON.stringify(a));disegna()};
+    c.onclick=function(){var s=JSON.stringify(tutti().filter(function(z){return !BASE.some(function(b){return b.id===z.id})}),null,1);try{navigator.clipboard.writeText(s);c.textContent='Copiato!'}catch(e){window.prompt('Copia:',s)}};
+    o.onclick=function(){ss(KA,'0');location.hash='#update'};
+    [h,r,x,r2,n].forEach(function(e){f.appendChild(e)});W.appendChild(f);
+  }
+  function carica(){try{fetch('updates.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[]}).then(function(a){if(Array.isArray(a)){rem=a;if(!U.hidden)disegna()}}).catch(function(){})}catch(e){}}
+  function route(){
+    var h=location.hash;
+    if(h==='#update-admin'){ss(KA,'1');history.replaceState(null,'','#update');h='#update'}
+    var on=h.startsWith('#update');document.body.classList.toggle('mostra-update',on);U.hidden=!on;
+    if(on){disegna();scrollTo(0,0)}
+  }
+  addEventListener('hashchange',route);carica();route();
 })();
 </script>
 <script>
