@@ -62,6 +62,11 @@ section{padding-block:96px}
 .hero[data-sky="notte"]{--sky1:#05091c;--sky2:#17244d;--hfg:#f5f5f7;--hmuted:#aab4d4;--hlink:#8cc2ff}
 .hero .eyebrow{color:var(--hmuted)} .hero .lead{color:var(--hmuted)} .hero .cta-row a:not(.btn){color:var(--hlink)}
 .hero canvas{display:block;width:100%;max-width:1200px;height:auto;aspect-ratio:12/7;margin:12px auto 0}
+.hv-box{position:relative;width:calc(100% - 40px);max-width:1200px;margin:40px auto 0}
+.hv-audio{position:absolute;right:18px;bottom:18px;font:inherit;font-size:14px;font-weight:600;color:#fff;background:rgba(30,30,32,.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.18);border-radius:980px;padding:9px 16px;cursor:pointer}
+.hv-audio:hover{background:rgba(50,50,54,.8)}
+.hero-video{display:block;width:100%;aspect-ratio:16/9;margin:0;border-radius:28px;background:#000;object-fit:cover;box-shadow:0 40px 90px -40px rgba(0,0,0,.6)}
+@media (max-width:640px){.hv-box{width:calc(100% - 24px);margin-top:28px}.hero-video{border-radius:18px}.hv-audio{right:10px;bottom:10px;font-size:12.5px;padding:7px 12px}}
 .skytag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--hmuted);margin-top:4px;font-variant-numeric:tabular-nums}
 .skytag i{width:8px;height:8px;border-radius:50%;background:#30d158;box-shadow:0 0 0 3px color-mix(in srgb,#30d158 30%,transparent)}
 
@@ -410,7 +415,7 @@ body.mostra-update > header.hero, body.mostra-update > section{display:none}
     </div>
     <div class="skytag" id="skytag"><i></i><span>In città ora</span></div>
   </div>
-  <canvas id="city" width="2400" height="1400" aria-label="Plastico isometrico della città di MillenniumRP, con il cielo dell'ora attuale"></canvas>
+  <div class="hv-box"><video class="hero-video" src="presentazione.mp4" poster="presentazione.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Video di presentazione del server MillenniumRP"></video><button type="button" class="hv-audio" id="hvAudio" aria-pressed="false">🔇 Attiva audio</button></div>
 </header>
 
 <section class="dark center" id="citta">
@@ -731,7 +736,7 @@ const AZIENDE = [
    PLASTICO ISOMETRICO — il cielo e le luci seguono l'ora vera
    ========================================================= */
 (function(){
-  const c=document.getElementById('city'),x=c.getContext('2d'),hero=document.querySelector('.hero');
+  const c=document.getElementById('city')||document.createElement('canvas'),x=c.getContext('2d'),hero=document.querySelector('.hero');
   const N=20,T=50,H=25,Z=50;            // celle, mezza larghezza, mezza altezza, pixel per blocco in altezza
   const ox=c.width/2, oy=300;
   let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
@@ -875,8 +880,8 @@ const AZIENDE = [
   const tag=document.querySelector('#skytag span');
   function label(){const d=new Date(),f=fase();tag.textContent=`In città ora ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')} · ${f==='giorno'?'giorno':f==='tramonto'?'tramonto':'notte'}`}
   label();setInterval(label,30000);
-  function loop(t){draw(t);if(!still)requestAnimationFrame(loop)}
-  loop(0);
+  function loop(t){draw(t);if(!still&&c.isConnected)requestAnimationFrame(loop)}
+  loop(0);if(!c.isConnected)setInterval(function(){draw(0)},60000);
 })();
 
 /* ---------- tachimetro ---------- */
@@ -1312,6 +1317,11 @@ document.getElementById('copy').addEventListener('click',async e=>{
   var nv=document.querySelector('nav');
   if(nv){var on=function(){nv.classList.toggle('scroll',scrollY>8)};addEventListener('scroll',on,{passive:true});on()}
 })();
+</script>
+<script>
+(function(){var v=document.querySelector('.hero-video'),b=document.getElementById('hvAudio');if(!v||!b)return;
+b.addEventListener('click',function(){v.muted=!v.muted;if(!v.muted){v.volume=.8;if(v.currentTime>1)v.currentTime=0;v.play()}
+b.textContent=v.muted?'🔇 Attiva audio':'🔊 Audio attivo';b.setAttribute('aria-pressed',String(!v.muted))})})();
 </script>
 </body>
 </html>
