@@ -1,5 +1,12 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+<meta name="description" content="MillenniumRP: server Minecraft roleplay. Lavori, veicoli, economia e area personale del cittadino.">
 <title>MillenniumRP</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
@@ -212,6 +219,16 @@ body.mostra-area > header.hero, body.mostra-area > section{display:none}
 .schede{display:inline-flex;gap:4px;margin-top:28px;padding:4px;background:var(--tile2);border:1px solid var(--line);border-radius:980px;max-width:100%;overflow-x:auto}
 .schede button{font:inherit;font-size:14px;font-weight:500;border:0;background:transparent;color:var(--fg);padding:8px 16px;border-radius:980px;cursor:pointer;white-space:nowrap}
 .schede button[aria-selected="true"]{background:var(--tile);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.stat-testa{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.stat-testa select{font:inherit;font-size:14px;padding:7px 14px;border-radius:980px;border:1px solid var(--line);background:var(--tile2);color:var(--fg)}
+.stat-scroll{overflow-x:auto;margin-top:14px;border-top:1px solid var(--line)}
+table.stat{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+table.stat th{font-size:12.5px;font-weight:600;color:var(--muted);text-align:right;padding:12px 12px 8px;white-space:nowrap}
+table.stat td{text-align:right;padding:10px 12px;border-top:1px solid var(--line);white-space:nowrap}
+table.stat th:first-child,table.stat td:first-child{text-align:left;position:sticky;left:0;background:var(--tile)}
+table.stat tfoot td{font-weight:700}
+table.stat td.zero{color:var(--muted)}
+table.stat em{font-style:normal;color:var(--muted);font-size:12.5px}
 .dip{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line);flex-wrap:wrap}
 .dip em{display:block;font-style:normal;color:var(--muted);font-size:12.5px;margin-top:2px}
 .paga{display:flex;gap:6px}
@@ -231,7 +248,39 @@ body.mostra-area > header.hero, body.mostra-area > section{display:none}
   dialog[open] .folder{animation:pop .35s cubic-bezier(.2,.7,.2,1)}
   @keyframes pop{from{transform:translateY(24px) scale(.98)}to{transform:none}}
 }
+
+/* ---------- Telefono (11/11) ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+a,button{-webkit-tap-highlight-color:transparent}
+.lista>div:nth-child(2n){white-space:nowrap}
+@media (max-width:760px){
+  html{scroll-padding-top:100px}
+  nav .wrap{flex-wrap:wrap;height:auto;row-gap:0;column-gap:12px;padding-top:8px}
+  nav .cta{padding:8px 16px;font-size:14px}
+  nav .links{display:flex;order:3;flex-basis:100%;justify-content:flex-start;gap:22px;overflow-x:auto;padding:10px 0 10px;font-size:14px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent)}
+  nav .links::-webkit-scrollbar{display:none}
+  nav .links a{white-space:nowrap;padding:4px 0}
+  body.mostra-area nav .links{display:none}
+}
+@media (max-width:560px){
+  .card{min-height:0;padding:26px 22px 28px;border-radius:24px}
+  .card h3{font-size:26px}
+  .card .glyph{font-size:120px;bottom:-18px}
+  .sheet .code{padding-right:44px}
+  .porta{padding:32px 20px;border-radius:26px;margin-top:3vh}
+  .area-head{gap:14px}
+  .area-head .av-big{width:60px;height:60px;border-radius:18px;font-size:24px}
+  .area-head .esci{margin-left:0}
+  .stat-testa select{font-size:16px}
+  .schede{display:flex;width:100%;border-radius:18px}
+  .schede button{flex:1 1 0;min-width:0;white-space:normal;line-height:1.2;padding:9px 10px;border-radius:14px}
+  .lista{font-size:14px;gap:10px 12px}
+  .paga input{min-height:40px;font-size:16px}
+  .paga button{min-height:40px}
+}
 </style>
+</head>
+<body>
 
 <nav aria-label="Principale">
   <div class="wrap">
@@ -786,6 +835,27 @@ document.getElementById('copy').addEventListener('click',async e=>{
     casse:[{id:3,posizione:'1199 64 590',totale:840},{id:4,posizione:'1201 64 590',totale:1210}],
     movimenti:[{tipo:'STIPENDIO',importo:2400,chi:'TheNikiGamer3005',verso:'masterchiefred',data:ora-2*h},{tipo:'VERSAMENTO',importo:3200,chi:'masterchiefred',data:ora-5*h},{tipo:'PRELIEVO',importo:500,chi:'TheNikiGamer3005',data:ora-26*h},{tipo:'VERSAMENTO',importo:6150,chi:'Esempio_RP',data:ora-30*h},{tipo:'PIN',importo:0,chi:'TheNikiGamer3005',data:ora-80*h},{tipo:'INSTALLATA',importo:0,chi:'TheNikiGamer3005',data:ora-81*h}],
     dipendenti:[{nome:'TheNikiGamer3005',ruolo:'Dirigente',gestore:true,online:true,ultimoStipendio:null},{nome:'masterchiefred',ruolo:'Primario',gestore:true,online:false,ultimoStipendio:{importo:2400,data:ora-2*h}},{nome:'Esempio_RP',ruolo:'Paramedico',gestore:false,online:true,ultimoStipendio:{importo:900,data:ora-50*h}}]};
+  const DEMO_STAT={azienda:'amazon',settimane:['2026-11-09','2026-11-02'],settimana:'2026-11-09',corrente:true,
+    tipi:[{id:'consegne_fatte',etichetta:'Consegne fatte'},{id:'consegne_ritardo',etichetta:'In ritardo'},{id:'consegne_fallite',etichetta:'Fallite'},{id:'scatole_preparate',etichetta:'Scatole preparate'}],
+    righe:[{nome:'Esempio_RP',valori:{consegne_fatte:14,consegne_ritardo:2,scatole_preparate:3},totale:19,attuale:true},{nome:'QuickBed',valori:{scatole_preparate:41},totale:41,attuale:true},{nome:'Corriere_2',valori:{consegne_fatte:9,consegne_fallite:1},totale:10,attuale:true}],
+    totali:{consegne_fatte:23,consegne_ritardo:2,consegne_fallite:1,scatole_preparate:44}};
+  const MESI_S=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+  function settLabel(w){const d=new Date(w+'T12:00:00'),f=new Date(d.getTime()+6*864e5);return `${d.getDate()} ${MESI_S[d.getMonth()]} – ${f.getDate()} ${MESI_S[f.getMonth()]}`}
+  function caricaStatistiche(sett){
+    const box=document.getElementById('stat');if(!box)return;
+    (demo?Promise.reject():fetch('/api/azienda/statistiche'+(sett?'?settimana='+encodeURIComponent(sett):''),{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json()}))
+      .then(s=>statistiche(box,s)).catch(()=>{if(demo)statistiche(box,DEMO_STAT);else box.innerHTML='<h3>Statistiche della settimana</h3><div class="vuoto">Non disponibili.</div>'});
+  }
+  function statistiche(box,s){
+    const tipi=s.tipi||[],righe=s.righe||[],sett=s.settimane||[],tot=s.totali||{};
+    const sel=`<label class="sr" for="sett">Settimana</label><select id="sett">${sett.map((w,i)=>`<option value="${esc(w)}"${w===s.settimana?' selected':''}>${settLabel(w)}${i===0?' · in corso':''}</option>`).join('')}</select>`;
+    const tab=tipi.length?`<div class="stat-scroll"><table class="stat"><thead><tr><th scope="col">Dipendente</th>${tipi.map(t=>`<th scope="col">${esc(t.etichetta)}</th>`).join('')}</tr></thead>
+      <tbody>${righe.map(r=>`<tr><td>${esc(r.nome)}${r.attuale?'':' <em>(non più qui)</em>'}</td>${tipi.map(t=>{const v=(r.valori||{})[t.id];return v?`<td>${v}</td>`:'<td class="zero">–</td>'}).join('')}</tr>`).join('')}</tbody>
+      <tfoot><tr><td>Totale</td>${tipi.map(t=>`<td>${tot[t.id]||0}</td>`).join('')}</tr></tfoot></table></div>`
+      :'<div class="vuoto">Ancora nessuna statistica. Compaiono qui quando i dipendenti lavorano.</div>';
+    box.innerHTML=`<div class="stat-testa"><h3>Statistiche della settimana</h3>${sel}</div><div class="nota">Da lunedì a domenica · servono a decidere gli stipendi, non muovono soldi</div>${tab}`;
+    box.querySelector('#sett').addEventListener('change',e=>caricaStatistiche(e.target.value));
+  }
   const MOV_AZ={VERSAMENTO:['Versamento','p'],PRELIEVO:['Prelievo','m'],STIPENDIO:['Stipendio','m'],INSTALLATA:['Cassaforte installata',''],RIMOSSA:['Cassaforte rimossa',''],PIN:['PIN cambiato','']};
   function caricaAzienda(){
     const box=document.getElementById('gest');if(!box)return;
@@ -800,7 +870,9 @@ document.getElementById('copy').addEventListener('click',async e=>{
     const casse=`<div class="acard w2"><h3>Casse del negozio</h3><div class="medio">${EUR.format(totCasse)}</div><div class="nota">Contanti da portare in cassaforte</div>${(a.casse||[]).map(c=>`<div class="riga"><span>Cassa ${esc(c.id)} · ${esc(c.posizione)}</span><b>${EUR.format(c.totale)}</b></div>`).join('')||'<div class="vuoto">Nessuna cassa.</div>'}</div>`;
     const mov=`<div class="acard w3"><h3>Movimenti</h3>${(a.movimenti||[]).length?`<div class="lista">${a.movimenti.map(m=>{const[t,c]=MOV_AZ[m.tipo]||[m.tipo,''];return `<div>${t}${m.verso?' a '+esc(m.verso):''}<em>${esc(m.chi||'')} · ${quando(m.data)}</em></div><div class="${c}">${m.importo?(c==='p'?'+ ':c==='m'?'− ':'')+EUR.format(m.importo):''}</div>`}).join('')}</div>`:'<div class="vuoto">Nessun movimento.</div>'}</div>`;
     const dip=`<div class="acard w3"><h3>Dipendenti</h3><div class="medio">${(a.dipendenti||[]).length}</div>${(a.dipendenti||[]).map((p,i)=>`<div class="dip"><div><b>${esc(p.nome||'?')}</b> <span class="pill ${p.online?'ok':'off'}" style="padding:1px 7px"><i></i>${p.online?'in gioco':'fuori'}</span><em>${pulito(p.ruolo)}${p.ultimoStipendio?' · ultimo '+EUR.format(p.ultimoStipendio.importo)+' '+quando(p.ultimoStipendio.data):''}</em></div><form class="paga" data-nick="${esc(p.nome||'')}"><label class="sr" for="imp${i}">Importo per ${esc(p.nome||'')}</label><input id="imp${i}" type="number" min="1" step="1" placeholder="€" inputmode="numeric" required><button type="submit">Paga</button></form></div>`).join('')}<p class="nota" id="esitoPaga" role="status" style="margin-top:10px"></p></div>`;
-    box.innerHTML=`<div class="agrid">${cf}${casse}${mov}${dip}</div>`;
+    const st='<div class="acard w6" id="stat"><h3>Statistiche della settimana</h3><div class="vuoto">Caricamento…</div></div>';
+    box.innerHTML=`<div class="agrid">${cf}${casse}${mov}${dip}${st}</div>`;
+    caricaStatistiche();
     box.querySelectorAll('form.paga').forEach(f=>f.addEventListener('submit',ev=>{ev.preventDefault();
       const imp=f.querySelector('input').value,out=document.getElementById('esitoPaga');
       if(demo){out.textContent=`Anteprima: sul server ${f.dataset.nick} riceverebbe ${EUR.format(+imp||0)} dalla cassaforte.`;return}
@@ -896,3 +968,5 @@ document.getElementById('copy').addEventListener('click',async e=>{
   route();
 })();
 </script>
+</body>
+</html>
